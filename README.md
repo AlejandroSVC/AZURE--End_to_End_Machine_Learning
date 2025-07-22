@@ -1,4 +1,4 @@
-# Cloud - Clasificación binaria de XGBoost en Azure ML usando PySpark
+# Cloud - XGBoost distribuido en Azure ML usando PySpark
 
 ## Descripción general
 

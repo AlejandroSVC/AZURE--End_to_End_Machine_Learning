@@ -184,7 +184,7 @@ def get_file_size(path):
     if path.startswith("dbfs:/") or path.startswith("wasbs:/"):  
         # Para almacenamiento en la nube (por ejemplo, Databricks File System o Azure Blob Storage),  
         # use el SDK apropiado para obtener el tamaño del archivo. Aquí se usa un valor de ejemplo.  
-        return 20 * 1024 * 1024 * 1024  # Ejemplo: 20 GB  
+        return 20 * 1024 * 1024 * 1024        # Ejemplo: 20 GB  
     # Para archivos locales, use os.path.getsize para obtener el tamaño en bytes.  
     return os.path.getsize(path)  
 ```  
@@ -196,14 +196,17 @@ train_size = get_file_size("train_data.parquet")
 ```  
 
 ---- MEJORES PRÁCTICAS DE AZURE ML ----  
+
 Seleccione recursos de cómputo basados en el tamaño de los datos y los requisitos de entrenamiento para optimizar costos y rendimiento.  
-- < 1GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
-- 1GB a 10GB: Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
-- > 10GB: Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
+
+< 1GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
+1GB a 10GB: Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
+> 10GB: Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
+
 Nota: Estos umbrales son ejemplos; ajústelos según necesidades de rendimiento y costos.  
 
 ```  
-if train_size < 1 * 1024 ** 3:  # < 1GB  
+if train_size < 1 * 1024 ** 3:     # < 1GB  
     compute_type = "CPU, nodo único"  
     use_sagemaker = False  
     use_gpu = False  
@@ -263,19 +266,19 @@ Defina el estimador de XGBoost para entrenamiento distribuido.
 
 ```  
 xgb = XGBoost(  
-    entry_point=None,           # Usa el contenedor integrado de XGBoost; establezca un script personalizado si es necesario.  
+    entry_point=None,     # Usa el contenedor integrado de XGBoost; establezca un script personalizado si es necesario.  
     framework_version="1.5-1",  # Especifica la versión de XGBoost.  
-    role=role,                  # Rol IAM para SageMaker.  
-    instance_count=2 if use_sagemaker else 1,                       # Múltiples instancias para entrenamiento distribuido.  
+    role=role,            # Rol IAM para SageMaker.  
+    instance_count=2 if use_sagemaker else 1,        # Múltiples instancias para entrenamiento distribuido.  
     instance_type="ml.p3.2xlarge" if use_gpu else "ml.m5.4xlarge",  # Instancias GPU o CPU.  
     py_version="py3",           # Versión de Python para el trabajo de entrenamiento.  
     hyperparameters={  
-        "max_depth": 5,         # Profundidad máxima de cada árbol.  
-        "eta": 0.2,             # Tasa de aprendizaje para evitar sobreajuste.  
+        "max_depth": 5,                  # Profundidad máxima de cada árbol.  
+        "eta": 0.2,                      # Tasa de aprendizaje para evitar sobreajuste.  
         "objective": "binary:logistic",  # Objetivo para clasificación binaria.  
-        "num_round": 200,       # Número de rondas de boosting.  
-        "subsample": 0.8,       # Fracción de muestras por árbol.  
-        "verbosity": 2          # Nivel de registro.  
+        "num_round": 200,                # Número de rondas de boosting.  
+        "subsample": 0.8,                # Fracción de muestras por árbol.  
+        "verbosity": 2                   # Nivel de registro.  
     },  
     sagemaker_session=session,  
     distribution={" parameter_server": {"enabled": True}} if use_sagemaker else None  # Habilita entrenamiento distribuido.  
@@ -378,9 +381,9 @@ Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-depl
 
 ```  
 model = Model.register(  
-    workspace=ws,  # Objeto del área de trabajo de Azure ML.  
-    model_path="xgboost-model",  # Ruta al archivo del modelo.  
-    model_name="xgboost_binary_classifier",  # Nombre del modelo en el área de trabajo.  
+    workspace=ws,                                                   # Objeto del área de trabajo de Azure ML.  
+    model_path="xgboost-model",                                     # Ruta al archivo del modelo.  
+    model_name="xgboost_binary_classifier",                         # Nombre del modelo en el área de trabajo.  
     tags={"framework": "xgboost", "type": "binary-classification"}  # Etiquetas para organización.  
 )  
 ```  

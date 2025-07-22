@@ -199,9 +199,9 @@ train_size = get_file_size("train_data.parquet")
 
 Seleccione recursos de cómputo basados en el tamaño de los datos y los requisitos de entrenamiento para optimizar costos y rendimiento.  
 
-<1GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
-1GB a 10GB: Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
->10GB: Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
+Menos de 1 GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
+1GB a 10GB:    Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
+Más de 10GB:   Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
 
 Nota: Estos umbrales son ejemplos; ajústelos según necesidades de rendimiento y costos.  
 

@@ -44,11 +44,17 @@ Prácticas recomendadas
 ## Paso 1: Configuración del espacio de trabajo y el entorno
 
 Asegúrese de que todos los paquetes necesarios estén instalados para el flujo de trabajo:
+
 • azureml-sdk: Para interactuar con los servicios de Azure Machine Learning.
+
 • pyspark: Para el procesamiento distribuido de datos con Apache Spark.
+
 • pyarrow: Para un intercambio de datos eficiente entre Spark y otros sistemas.
+
 • sagemaker: Para usar las capacidades de entrenamiento distribuido de AWS SageMaker.
+
 • xgboost: La biblioteca de aprendizaje automático para la optimización de gradientes.
+
 • boto3: SDK de AWS para Python, necesario para interactuar on S3 en SageMaker.
 
 ```

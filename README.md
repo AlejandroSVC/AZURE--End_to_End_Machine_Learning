@@ -16,7 +16,7 @@ El código se divide en siete pasos principales
 6) Evaluación del modelo
 7) Registro e implementación del modelo
 
-Requisitos previos
+**Requisitos previos**
 
 •  Suscripción a Azure.
 
@@ -31,7 +31,7 @@ Requisitos previos
 •  Gran conjunto de datos Parquet con características numéricas y una columna de destino binaria.
 
 
-Prácticas recomendadas
+**Prácticas recomendadas**
 
 •  Supervise siempre los costos y el uso de recursos en Azure ML.
 

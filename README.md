@@ -2,7 +2,7 @@
 
 ## Descripción general
 
-Este código crea un flujo de trabajo completo para entrenar e implementar un modelo de clasificación binaria escalable y de alto rendimiento utilizando XGBoost en Azure ML, aprovechando PySpark para la lectura y procesamiento de big data, y SageMaker para el entrenamiento distribuido del modelo.
+Este código crea un flujo de trabajo completo para entrenar e implementar un modelo de clasificación binaria escalable y de alto rendimiento utilizando XGBoost en Azure ML, aprovechando PySpark para la lectura y procesamiento de los datos, y SageMaker para el entrenamiento distribuido del modelo.
 
 Si bien este flujo de trabajo conecta Azure ML y AWS SageMaker, está diseñado principalmente para escenarios donde las organizaciones aprovechan ambas plataformas para canalizaciones de ML flexibles e independientes de la nube. La mayoría de los usuarios utilizará las funciones nativas de entrenamiento distribuido de Azure ML (p. ej., azureml-train-automl, azureml-mlflow, azureml-train-automl-runtime o azureml-train-dnn). Sin embargo, la integración de SageMaker puede ser beneficiosa para cargas de trabajo a gran escala, multicloud o multirregionales.
 

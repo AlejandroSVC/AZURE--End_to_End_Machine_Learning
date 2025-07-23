@@ -18,26 +18,26 @@ El código se divide en siete pasos principales
 
 Requisitos previos
 
-• Suscripción a Azure.
+•  Suscripción a Azure.
 
-• Espacio de trabajo de Azure ML con cuota suficiente.
+•  Espacio de trabajo de Azure ML con cuota suficiente.
 
-• Acceso a Azure Data Lake o Blob Storage para el conjunto de datos.
+•  Acceso a Azure Data Lake o Blob Storage para el conjunto de datos.
 
-• Cuenta de AWS y configuración de SageMaker (IAM, permisos, emparejamiento de red si es multicloud).
+•  Cuenta de AWS y configuración de SageMaker (IAM, permisos, emparejamiento de red si es multicloud).
 
-• SDK instalados: azureml-sdk, pyspark, pyarrow, sagemaker, xgboost, boto3.
+•  SDK instalados: azureml-sdk, pyspark, pyarrow, sagemaker, xgboost, boto3.
 
-• Gran conjunto de datos Parquet con características numéricas y una columna de destino binaria.
+•  Gran conjunto de datos Parquet con características numéricas y una columna de destino binaria.
 
 
 Prácticas recomendadas
 
-• Supervise siempre los costos y el uso de recursos en Azure ML.
+•  Supervise siempre los costos y el uso de recursos en Azure ML.
 
-• Almacene grandes conjuntos de datos en Azure Data Lake Storage Gen2 para un rendimiento óptimo.
+•  Almacene grandes conjuntos de datos en Azure Data Lake Storage Gen2 para un rendimiento óptimo.
 
-• Para el entrenamiento distribuido, configure su clúster de cómputo para el escalado automático y la resiliencia.
+•  Para el entrenamiento distribuido, configure su clúster de cómputo para el escalado automático y la resiliencia.
 
 ## Clasificación Binaria con XGBoost Distribuido en Azure ML usando PySpark y AWS Sagemaker
 
@@ -45,17 +45,17 @@ Prácticas recomendadas
 
 Asegúrese de que todos los paquetes necesarios estén instalados para el flujo de trabajo:
 
-• azureml-sdk: Para interactuar con los servicios de Azure Machine Learning.
+•  azureml-sdk: Para interactuar con los servicios de Azure Machine Learning.
 
-• pyspark: Para el procesamiento distribuido de datos con Apache Spark.
+•  pyspark: Para el procesamiento distribuido de datos con Apache Spark.
 
-• pyarrow: Para un intercambio de datos eficiente entre Spark y otros sistemas.
+•  pyarrow: Para un intercambio de datos eficiente entre Spark y otros sistemas.
 
-• sagemaker: Para usar las capacidades de entrenamiento distribuido de AWS SageMaker.
+•  sagemaker: Para usar las capacidades de entrenamiento distribuido de AWS SageMaker.
 
-• xgboost: La biblioteca de aprendizaje automático para la optimización de gradientes.
+•  xgboost: La biblioteca de aprendizaje automático para la optimización de gradientes.
 
-• boto3: SDK de AWS para Python, necesario para interactuar on S3 en SageMaker.
+•  boto3: SDK de AWS para Python, necesario para interactuar on S3 en SageMaker.
 
 ```
 bash
@@ -69,11 +69,11 @@ from pyspark.sql import SparkSession
 ```
 Mejores prácticas de AZURE ML:
 
-• Utilice entidades de servicio o identidades administradas para una autenticación segura en los recursos de Azure.  
+•  Utilice entidades de servicio o identidades administradas para una autenticación segura en los recursos de Azure.  
 
-• Otorgue el mínimo acceso necesario para reducir riesgos de seguridad, especialmente en scripts de automatización.  
+•  Otorgue el mínimo acceso necesario para reducir riesgos de seguridad, especialmente en scripts de automatización.  
 
-• Almacene información sensible, como credenciales, en Azure Key Vault para mayor seguridad.  
+•  Almacene información sensible, como credenciales, en Azure Key Vault para mayor seguridad.  
 
 Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-setup-authentication  
 
@@ -98,9 +98,9 @@ Si ya existe una sesión, se reutiliza; de lo contrario, se crea una nueva.
 
 Mejores prácticas de AZURE ML:
 
-• Utilice un clúster de Spark dedicado para conjuntos de datos grandes y aproveche el procesamiento distribuido.  
+•  Utilice un clúster de Spark dedicado para conjuntos de datos grandes y aproveche el procesamiento distribuido.  
 
-• Para conjuntos de datos más pequeños, considere usar AmlCompute para mayor eficiencia de costos.  
+•  Para conjuntos de datos más pequeños, considere usar AmlCompute para mayor eficiencia de costos.  
 
 Referencia: https://learn.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-machine-learning-training  
 
@@ -111,14 +111,6 @@ spark = SparkSession.builder \
 ```  
 
 ## Paso 2: Ingesta de datos con PySpark  
-
-Mejores prácticas de AZURE ML:
-
-• Utilice objetos Dataset de Azure ML para el versionado, seguimiento y gestión del linaje de datos.  
-
-• Asegúrese de que el conjunto de datos esté registrado en Azure ML para un versionado adecuado.  
-
-Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/concept-data  
 
 Cargue el conjunto de datos desde un archivo Parquet almacenado en el almacén de datos predeterminado del área de trabajo de Azure ML.  
 Parquet es un formato de almacenamiento columnar optimizado para el procesamiento de big data.  
@@ -146,6 +138,13 @@ Cuente el número total de filas para evaluar el tamaño del conjunto de datos.
 ```  
 print(f"Total Rows: {df.count()}")  
 ```  
+Mejores prácticas de AZURE ML:
+
+•  Utilice objetos Dataset de Azure ML para el versionado, seguimiento y gestión del linaje de datos.  
+
+•  Asegúrese de que el conjunto de datos esté registrado en Azure ML para un versionado adecuado.  
+
+Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/concept-data  
 
 ## Paso 3: Preprocesamiento de datos  
 
@@ -222,15 +221,15 @@ train_size = get_file_size("train_data.parquet")
 
 Mejores prácticas de AZURE ML:
 
-• Seleccione recursos de cómputo basados en el tamaño de los datos y los requisitos de entrenamiento para optimizar costos y rendimiento:
+•  Seleccione recursos de cómputo basados en el tamaño de los datos y los requisitos de entrenamiento para optimizar costos y rendimiento:
 
-• Menos de 1 GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
+•  Menos de 1 GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
 
-• 1GB a 10GB:    Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
+•  1 GB a 10 GB:  Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
 
-• Más de 10GB:   Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
+•  Más de 10 GB:  Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
 
-Nota: Estos umbrales son ejemplos; ajústelos según necesidades de rendimiento y costos.  
+Nota: Estos umbrales son ejemplos; se los debe ajustar según necesidades de rendimiento y costos.  
 
 ```  
 if train_size < 1 * 1024 ** 3:     # < 1GB  
@@ -261,11 +260,11 @@ from sagemaker.xgboost.estimator import XGBoost
 
 Mejores prácticas de AZURE ML:
 
-• Registre todos los hiperparámetros y metadatos en Azure ML para trazabilidad.  
+•  Registre todos los hiperparámetros y metadatos en Azure ML para trazabilidad.  
 
-• Use nombres de ejecución únicos para rastrear experimentos de manera efectiva.  
+•  Use nombres de ejecución únicos para rastrear experimentos de manera efectiva.  
 
-• Nota: Dado que el entrenamiento se realiza en SageMaker, considere registrar métricas en Azure ML.  
+•  Nota: Dado que el entrenamiento se realiza en SageMaker, considere registrar métricas en Azure ML.  
 
 Cree una sesión de SageMaker para gestionar interacciones con los servicios de SageMaker.  
 ```  
@@ -289,18 +288,19 @@ test_s3_path  = session.upload_data("test_data.parquet",  key_prefix="xgb/test")
 Importante: El algoritmo XGBoost integrado de SageMaker generalmente espera formato CSV o libsvm.  
 Cargar archivos Parquet puede requerir un script de entrenamiento personalizado para leerlos.  
 Para este ejemplo, asumimos una configuración compatible, pero verifique la compatibilidad.  
+
 Referencia: https://docs.aws.amazon.com/sagemaker/latest/dg/xgboost.html  
 
-Defina el estimador de XGBoost para entrenamiento distribuido.  
+Definir el estimador de XGBoost para entrenamiento distribuido.  
 
 ```  
 xgb = XGBoost(  
-    entry_point=None,     # Usa el contenedor integrado de XGBoost; establezca un script personalizado si es necesario.  
-    framework_version="1.5-1",  # Especifica la versión de XGBoost.  
-    role=role,            # Rol IAM para SageMaker.  
-    instance_count=2 if use_sagemaker else 1,        # Múltiples instancias para entrenamiento distribuido.  
-    instance_type="ml.p3.2xlarge" if use_gpu else "ml.m5.4xlarge",  # Instancias GPU o CPU.  
-    py_version="py3",           # Versión de Python para el trabajo de entrenamiento.  
+    entry_point=None,                    # Usa el contenedor integrado de XGBoost; establezca un script personalizado si es necesario.  
+    framework_version="1.5-1",           # Especifica la versión de XGBoost.  
+    role=role,                           # Rol IAM para SageMaker.  
+    instance_count=2 if use_sagemaker else 1,                          # Múltiples instancias para entrenamiento distribuido.  
+    instance_type="ml.p3.2xlarge" if use_gpu else "ml.m5.4xlarge",     # Instancias GPU o CPU.  
+    py_version="py3",                    # Versión de Python para el trabajo de entrenamiento.  
     hyperparameters={  
         "max_depth": 5,                  # Profundidad máxima de cada árbol.  
         "eta": 0.2,                      # Tasa de aprendizaje para evitar sobreajuste.  
@@ -316,9 +316,9 @@ xgb = XGBoost(
 
 Mejores prácticas de AZURE ML:
 
-• Siempre habilite el registro y capture métricas para reproducibilidad y monitoreo.  
+•  Siempre habilite el registro y capture métricas para reproducibilidad y monitoreo.  
 
-• Aunque el entrenamiento se realice en SageMaker, considere integrar los registros con Azure ML.  
+•  Aunque el entrenamiento se realice en SageMaker, considere integrar los registros con Azure ML.  
 
 ```  
 xgb.fit(  
@@ -408,19 +408,20 @@ from azureml.core import Model
 
 Mejores prácticas de AZURE ML:
 
-• Registre todos los modelos en el área de trabajo de Azure ML para habilitar el versionado y seguimiento.  
+•  Registre todos los modelos en el área de trabajo de Azure ML para habilitar el versionado y seguimiento.  
 
 Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where  
 
 ```  
 model = Model.register(  
-    workspace=ws,                                                   # Objeto del área de trabajo de Azure ML.  
-    model_path="xgboost-model",                                     # Ruta al archivo del modelo.  
-    model_name="xgboost_binary_classifier",                         # Nombre del modelo en el área de trabajo.  
-    tags={"framework": "xgboost", "type": "binary-classification"}  # Etiquetas para organización.  
+    workspace=ws,                                                    # Objeto del área de trabajo de Azure ML.  
+    model_path="xgboost-model",                                      # Ruta al archivo del modelo.  
+    model_name="xgboost_binary_classifier",                          # Nombre del modelo en el área de trabajo.  
+    tags={"framework": "xgboost", "type": "binary-classification"}   # Etiquetas para organización.  
 )  
 ```  
 
 Opcional: Implemente el modelo como un servicio web para inferencia en tiempo real.  
 Se omite en este demo, pero consulte la documentación de Azure ML para los pasos de implementación.  
+
 Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-managed-online-endpoints

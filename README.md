@@ -67,11 +67,16 @@ from azureml.core import Workspace, Experiment, Environment, ScriptRunConfig, Da
 from azureml.core.compute import AmlCompute
 from pyspark.sql import SparkSession
 ```
----- MEJORES PRÁCTICAS DE AZURE ML ----  
-Utilice entidades de servicio o identidades administradas para una autenticación segura en los recursos de Azure.  
-Otorgue el mínimo acceso necesario para reducir riesgos de seguridad, especialmente en scripts de automatización.  
-Almacene información sensible, como credenciales, en Azure Key Vault para mayor seguridad.  
+Mejores prácticas de AZURE ML:
+
+• Utilice entidades de servicio o identidades administradas para una autenticación segura en los recursos de Azure.  
+
+• Otorgue el mínimo acceso necesario para reducir riesgos de seguridad, especialmente en scripts de automatización.  
+
+• Almacene información sensible, como credenciales, en Azure Key Vault para mayor seguridad.  
+
 Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-setup-authentication  
+
 Conéctese al área de trabajo de Azure ML utilizando un archivo de configuración (config.json).  
 El archivo config.json debe contener el ID de suscripción, el grupo de recursos y el nombre del área de trabajo.  
 
@@ -91,9 +96,12 @@ Inicialice una SparkSession, el punto de entrada para la funcionalidad de Spark.
 La sesión se nombra "XGBoostBinaryClassification" para mayor claridad.  
 Si ya existe una sesión, se reutiliza; de lo contrario, se crea una nueva.  
 
----- MEJORES PRÁCTICAS DE AZURE ML ----  
-Utilice un clúster de Spark dedicado para conjuntos de datos grandes y aproveche el procesamiento distribuido.  
-Para conjuntos de datos más pequeños, considere usar AmlCompute para mayor eficiencia de costos.  
+Mejores prácticas de AZURE ML:
+
+• Utilice un clúster de Spark dedicado para conjuntos de datos grandes y aproveche el procesamiento distribuido.  
+
+• Para conjuntos de datos más pequeños, considere usar AmlCompute para mayor eficiencia de costos.  
+
 Referencia: https://learn.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-machine-learning-training  
 
 ```  
@@ -104,9 +112,12 @@ spark = SparkSession.builder \
 
 ## Paso 2: Ingesta de datos con PySpark  
 
----- MEJORES PRÁCTICAS DE AZURE ML ----  
-Utilice objetos Dataset de Azure ML para el versionado, seguimiento y gestión del linaje de datos.  
-Asegúrese de que el conjunto de datos esté registrado en Azure ML para un versionado adecuado.  
+Mejores prácticas de AZURE ML:
+
+• Utilice objetos Dataset de Azure ML para el versionado, seguimiento y gestión del linaje de datos.  
+
+• Asegúrese de que el conjunto de datos esté registrado en Azure ML para un versionado adecuado.  
+
 Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/concept-data  
 
 Cargue el conjunto de datos desde un archivo Parquet almacenado en el almacén de datos predeterminado del área de trabajo de Azure ML.  
@@ -209,13 +220,15 @@ Obtenga el tamaño del archivo de datos de entrenamiento.
 train_size = get_file_size("train_data.parquet")  
 ```  
 
----- MEJORES PRÁCTICAS DE AZURE ML ----  
+Mejores prácticas de AZURE ML:
 
-Seleccione recursos de cómputo basados en el tamaño de los datos y los requisitos de entrenamiento para optimizar costos y rendimiento.  
+• Seleccione recursos de cómputo basados en el tamaño de los datos y los requisitos de entrenamiento para optimizar costos y rendimiento:
 
-Menos de 1 GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
-1GB a 10GB:    Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
-Más de 10GB:   Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
+• Menos de 1 GB: Use un solo nodo CPU, sin entrenamiento distribuido en SageMaker.  
+
+• 1GB a 10GB:    Use múltiples nodos CPU con entrenamiento distribuido en SageMaker.  
+
+• Más de 10GB:   Use múltiples nodos GPU con entrenamiento distribuido en SageMaker.  
 
 Nota: Estos umbrales son ejemplos; ajústelos según necesidades de rendimiento y costos.  
 
@@ -246,13 +259,15 @@ from sagemaker.inputs import TrainingInput
 from sagemaker.xgboost.estimator import XGBoost  
 ```  
 
----- MEJORES PRÁCTICAS DE AZURE ML ----  
-Registre todos los hiperparámetros y metadatos en Azure ML para trazabilidad.  
-Use nombres de ejecución únicos para rastrear experimentos de manera efectiva.  
-Nota: Dado que el entrenamiento se realiza en SageMaker, considere registrar métricas en Azure ML.  
+Mejores prácticas de AZURE ML:
+
+• Registre todos los hiperparámetros y metadatos en Azure ML para trazabilidad.  
+
+• Use nombres de ejecución únicos para rastrear experimentos de manera efectiva.  
+
+• Nota: Dado que el entrenamiento se realiza en SageMaker, considere registrar métricas en Azure ML.  
 
 Cree una sesión de SageMaker para gestionar interacciones con los servicios de SageMaker.  
-
 ```  
 session = sagemaker.Session()  
 ```  
@@ -299,9 +314,11 @@ xgb = XGBoost(
 )  
 ```  
 
----- MEJORES PRÁCTICAS DE AZURE ML ----  
-Siempre habilite el registro y capture métricas para reproducibilidad y monitoreo.  
-Aunque el entrenamiento se realice en SageMaker, considere integrar los registros con Azure ML.  
+Mejores prácticas de AZURE ML:
+
+• Siempre habilite el registro y capture métricas para reproducibilidad y monitoreo.  
+
+• Aunque el entrenamiento se realice en SageMaker, considere integrar los registros con Azure ML.  
 
 ```  
 xgb.fit(  
@@ -389,8 +406,10 @@ Registre el modelo entrenado en Azure ML para versionado e implementación.
 from azureml.core import Model  
 ```  
 
----- MEJORES PRÁCTICAS DE AZURE ML ----  
-Registre todos los modelos en el área de trabajo de Azure ML para habilitar el versionado y seguimiento.  
+Mejores prácticas de AZURE ML:
+
+• Registre todos los modelos en el área de trabajo de Azure ML para habilitar el versionado y seguimiento.  
+
 Referencia: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where  
 
 ```  

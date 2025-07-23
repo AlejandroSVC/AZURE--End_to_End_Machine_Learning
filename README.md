@@ -19,16 +19,23 @@ El código se divide en siete pasos principales
 Requisitos previos
 
 • Suscripción a Azure.
+
 • Espacio de trabajo de Azure ML con cuota suficiente.
+
 • Acceso a Azure Data Lake o Blob Storage para el conjunto de datos.
+
 • Cuenta de AWS y configuración de SageMaker (IAM, permisos, emparejamiento de red si es multicloud).
+
 • SDK instalados: azureml-sdk, pyspark, pyarrow, sagemaker, xgboost, boto3.
+
 • Gran conjunto de datos Parquet con características numéricas y una columna de destino binaria.
 
 Prácticas recomendadas:
 
 • Supervise siempre los costos y el uso de recursos en Azure ML.
+
 • Almacene grandes conjuntos de datos en Azure Data Lake Storage Gen2 para un rendimiento óptimo.
+
 • Para el entrenamiento distribuido, configure su clúster de cómputo para el escalado automático y la resiliencia.
 
 ## Clasificación Binaria con XGBoost Distribuido en Azure ML usando PySpark y AWS Sagemaker

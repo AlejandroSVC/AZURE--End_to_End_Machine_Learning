@@ -30,7 +30,8 @@ Requisitos previos
 
 • Gran conjunto de datos Parquet con características numéricas y una columna de destino binaria.
 
-Prácticas recomendadas:
+
+Prácticas recomendadas
 
 • Supervise siempre los costos y el uso de recursos en Azure ML.
 

@@ -1,4 +1,4 @@
-# Cloud - XGBoost distribuido en Azure ML usando PySpark
+# Cloud - XGBoost escalable y distribuido en Azure ML usando PySpark
 
 ![banner_azure](docs/assets/images/banner_azure.jpg)
 

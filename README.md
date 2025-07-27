@@ -1,5 +1,7 @@
 # Cloud - XGBoost distribuido en Azure ML usando PySpark
 
+![banner_azure](docs/assets/images/banner_azure.jpg)
+
 ## Descripción general
 
 Este código crea un flujo de trabajo completo para entrenar e implementar un modelo de clasificación binaria escalable y de alto rendimiento utilizando XGBoost en Azure ML, aprovechando PySpark para la lectura y procesamiento de los datos, y SageMaker para el entrenamiento distribuido del modelo.
